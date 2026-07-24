@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { personalInfo, stats } from '../data/portfolio';
+import AnimatedButton from './AnimatedButton';
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -25,113 +26,149 @@ export default function Hero() {
   const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
-    <section id="home" className="hero">
-      <div className="hero__glow" aria-hidden="true" />
+    <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20">
+      {/* Background glow */}
+      <div
+        className="absolute top-[5%] right-[-5%] w-[600px] h-[600px] pointer-events-none animate-pulse-glow rounded-full"
+        style={{ background: 'radial-gradient(ellipse at center, rgba(196,69,245,0.18) 0%, transparent 70%)' }}
+        aria-hidden="true"
+      />
 
-      <div className="container">
+      <div className="max-w-[1100px] mx-auto px-8 flex flex-col gap-0 w-full">
         {/* ── Top two-column area ── */}
-        <div className="hero__top">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center py-12 lg:py-12 pb-10">
 
           {/* LEFT column */}
-          <div className="hero__left fade-in">
-            {/* $ whoami label */}
-            <p className="hero__whoami">
-              <span className="hero__whoami-prompt">$</span> whoami
+          <div className="flex flex-col animate-fade-in-up">
+            {/* $ whoami */}
+            <p className="font-mono text-[0.85rem] text-[var(--clr-text-muted)] mb-3 flex items-center gap-1">
+              <span className="text-[var(--clr-accent)] font-semibold">$</span> whoami
             </p>
 
             {/* Big name */}
-            <h1 className="hero__name">
+            <h1 className="font-black tracking-[-0.04em] leading-none mb-1"
+              style={{ fontSize: 'clamp(3rem, 8vw, 5.5rem)' }}>
               {personalInfo.firstName}
-              <span className="hero__name-accent">{personalInfo.lastName}</span>
+              <span className="text-[var(--clr-accent)] block">{personalInfo.lastName}</span>
             </h1>
 
             {/* Typewriter role */}
-            <p className="hero__role">
+            <p className="text-[1.3rem] font-semibold text-[var(--clr-text-secondary)] mb-5 min-h-[2rem]">
               {displayed}
-              <span className="hero__cursor" aria-hidden="true" />
+              <span
+                className="inline-block w-[3px] h-[1.2em] bg-[var(--clr-accent)] ml-[2px] align-text-bottom animate-blink"
+                aria-hidden="true"
+              />
             </p>
 
             {/* Bio */}
-            <p className="hero__desc">{personalInfo.bio}</p>
+            <p className="text-base text-[var(--clr-text-secondary)] leading-[1.75] max-w-[480px] mb-8">
+              {personalInfo.bio}
+            </p>
 
-            {/* CTAs — stacked like reference */}
-            <div className="hero__ctas">
-              <button
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-4 mb-6">
+              <AnimatedButton
                 id="hero-view-projects"
-                className="btn btn-primary"
                 onClick={() => scrollTo('projects')}
               >
                 View Projects →
-              </button>
-              <a
+              </AnimatedButton>
+              <AnimatedButton
                 id="hero-download-cv"
+                as="a"
                 href={personalInfo.cvUrl}
-                className="btn btn-outline"
                 target="_blank"
                 rel="noreferrer"
               >
                 Download Resume
-              </a>
-              <button
+              </AnimatedButton>
+              <AnimatedButton
                 id="hero-contact"
-                className="btn btn-outline"
                 onClick={() => scrollTo('contact')}
               >
                 Get in Touch
-              </button>
+              </AnimatedButton>
             </div>
 
             {/* Social badges */}
-            <div className="hero__social-links">
+            <div className="flex gap-2">
               <a id="hero-github-link" href={personalInfo.github}
-                target="_blank" rel="noreferrer" className="social-badge" aria-label="GitHub">GH</a>
+                target="_blank" rel="noreferrer" aria-label="GitHub"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--clr-border)] text-[0.75rem] font-mono font-semibold text-[var(--clr-text-secondary)] transition-all duration-150 hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] hover:-translate-y-0.5">
+                GH
+              </a>
               <a id="hero-linkedin-link" href={personalInfo.linkedin}
-                target="_blank" rel="noreferrer" className="social-badge" aria-label="LinkedIn">in</a>
+                target="_blank" rel="noreferrer" aria-label="LinkedIn"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--clr-border)] text-[0.75rem] font-mono font-semibold text-[var(--clr-text-secondary)] transition-all duration-150 hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] hover:-translate-y-0.5">
+                in
+              </a>
               <a id="hero-email-link" href={`mailto:${personalInfo.email}`}
-                className="social-badge" aria-label="Email">@</a>
+                aria-label="Email"
+                className="inline-flex items-center justify-center w-9 h-9 rounded-lg border border-[var(--clr-border)] text-[0.75rem] font-mono font-semibold text-[var(--clr-text-secondary)] transition-all duration-150 hover:border-[var(--clr-accent)] hover:text-[var(--clr-accent)] hover:-translate-y-0.5">
+                @
+              </a>
             </div>
           </div>
 
-          {/* RIGHT column — terminal, shifted 20px up */}
-          <div className="hero__terminal fade-in" style={{ animationDelay: '0.2s', marginTop: '-20px' }}>
+          {/* RIGHT column — terminal */}
+          <div
+            className="animate-fade-in-up rounded-[14px] overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
+            style={{ background: '#0d0b14', animationDelay: '0.2s', marginTop: '-20px' }}
+          >
             {/* Header bar */}
-            <div className="terminal__header">
-              <div className="terminal__dots">
-                <span className="terminal__dot terminal__dot--red" />
-                <span className="terminal__dot terminal__dot--yellow" />
-                <span className="terminal__dot terminal__dot--green" />
+            <div className="flex items-center gap-2 px-[1.1rem] py-[0.85rem] border-b border-[rgba(255,255,255,0.06)]"
+              style={{ background: 'rgba(255,255,255,0.03)' }}>
+              <div className="flex gap-[7px]">
+                <span className="w-[13px] h-[13px] rounded-full bg-[#ff5f57]" />
+                <span className="w-[13px] h-[13px] rounded-full bg-[#ffbd2e]" />
+                <span className="w-[13px] h-[13px] rounded-full bg-[#28ca41]" />
               </div>
-              <span className="terminal__title">
+              <span className="font-mono text-[0.78rem] text-[rgba(255,255,255,0.35)] ml-[0.4rem] tracking-wide">
                 {personalInfo.email.split('@')[0]}@portfolio · zsh
               </span>
             </div>
 
-            {/* Body — interactive shell style */}
-            <div className="terminal__body terminal__body--shell">
-              {/* Name + interactive shell line */}
-              <p className="terminal__shell-name">
+            {/* Body */}
+            <div className="px-7 pt-8 pb-20 font-mono text-[0.9rem] leading-loose flex flex-col gap-[0.1rem] min-h-[240px]">
+              <p className="text-[#e8e8f0] font-bold text-[0.95rem] m-0 tracking-[0.01em]">
                 {personalInfo.name} · interactive shell ✦
               </p>
-              {/* Help hint */}
-              <p className="terminal__shell-hint">type &apos;help&apos; to get started.</p>
-
-              {/* Prompt line */}
-              <p className="terminal__shell-prompt">
-                <span className="terminal__shell-arrow">→</span>
-                <span className="terminal__shell-tilde"> ~ </span>
-                <span className="terminal__shell-cmd">type &apos;help&apos;</span>
-                <span className="hero__cursor" aria-hidden="true" />
+              <p className="text-[rgba(200,200,220,0.45)] text-[0.88rem] m-0">
+                type &apos;help&apos; to get started.
+              </p>
+              <p className="flex items-center mt-[0.4rem] text-[0.88rem]">
+                <span className="text-[var(--clr-accent)] text-base mr-[0.35rem]">→</span>
+                <span className="text-[#28ca41] font-semibold"> ~ </span>
+                <span className="text-[rgba(200,200,220,0.4)]">type &apos;help&apos;</span>
+                <span
+                  className="inline-block w-[3px] h-[1.2em] bg-[var(--clr-accent)] ml-[2px] align-text-bottom animate-blink"
+                  aria-hidden="true"
+                />
               </p>
             </div>
           </div>
         </div>
 
-        {/* ── Stats strip — full width horizontal bar ── */}
-        <div className="hero__stats-bar fade-in" style={{ animationDelay: '0.4s' }}>
+        {/* ── Stats strip ── */}
+        <div
+          className="grid grid-cols-2 sm:grid-cols-4 border-t border-[var(--clr-border)] pt-8 pb-6 mt-2 animate-fade-in-up"
+          style={{ animationDelay: '0.4s' }}
+        >
           {stats.map((s, i) => (
-            <div key={i} className="hero__stat">
-              <span className="hero__stat-value">{s.value}</span>
-              <span className="hero__stat-label">{s.label}</span>
+            <div
+              key={i}
+              className={`flex flex-col gap-[0.3rem] px-2 ${i > 0 ? 'border-l border-[var(--clr-border)]' : ''}`}
+            >
+              <span
+                className="font-extrabold tracking-[-0.04em] leading-none text-[var(--clr-text-primary)]"
+                style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)' }}
+              >
+                {s.value}
+              </span>
+              <span className="text-[0.68rem] tracking-[0.12em] uppercase text-[var(--clr-text-muted)] font-medium leading-[1.3]">
+                {s.label}
+              </span>
             </div>
           ))}
         </div>

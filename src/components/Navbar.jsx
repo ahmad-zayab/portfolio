@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { personalInfo } from '../data/portfolio';
+import AnimatedButton from './AnimatedButton';
 
 export default function Navbar({ activeSection }) {
   const [scrolled, setScrolled] = useState(false);
@@ -33,73 +34,103 @@ export default function Navbar({ activeSection }) {
   };
 
   return (
-    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
-      <div className="container">
-        <div className="navbar__inner">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-[100] py-4 transition-all duration-300 ${
+        scrolled
+          ? 'bg-[rgba(10,10,15,0.85)] backdrop-blur-[16px] border-b border-[var(--clr-border)]'
+          : ''
+      }`}
+      style={scrolled && theme === 'light' ? { background: 'rgba(244,244,248,0.85)' } : undefined}
+    >
+      <div className="max-w-[1100px] mx-auto px-8">
+        <div className="flex items-center justify-between">
 
           {/* Logo */}
           <a
             href="#home"
-            className="navbar__logo"
+            className="text-base font-bold flex items-center gap-1 tracking-tight no-underline"
             onClick={(e) => { e.preventDefault(); scrollTo('home'); }}
           >
-            <span className="navbar__logo-initial">
+            <span className="inline-flex items-center justify-center w-8 h-8 bg-[var(--clr-accent)] text-white rounded-lg text-[0.875rem] font-extrabold">
               {personalInfo.firstName[0]}
             </span>
-            <span className="navbar__logo-name">
-              {personalInfo.firstName} <span>{personalInfo.lastName}</span>
+            <span className="ml-2 text-[var(--clr-text-primary)]">
+              {personalInfo.firstName}{' '}
+              <span className="text-[var(--clr-accent)]">{personalInfo.lastName}</span>
             </span>
           </a>
 
-          {/* Desktop Nav Links — hidden on mobile via CSS */}
-          <ul className="navbar__links navbar__links--desktop">
+          {/* Desktop Nav Links */}
+          <ul className="hidden md:flex items-center gap-1 list-none">
             {links.map((link) => (
               <li key={link.id}>
-                <button
+                <AnimatedButton
                   id={`nav-${link.id}`}
-                  className={`navbar__link ${activeSection === link.id ? 'active' : ''}`}
+                  contentClassName="px-4 py-1.5"
+                  className={`text-[0.9rem] font-medium transition-all duration-150 cursor-pointer font-[var(--font-sans)] ${
+                    activeSection === link.id
+                      ? 'text-[var(--clr-accent)]'
+                      : 'text-[var(--clr-text-secondary)] hover:text-[var(--clr-text-primary)]'
+                  }`}
                   onClick={() => scrollTo(link.id)}
                 >
                   {link.label}
-                </button>
+                </AnimatedButton>
               </li>
             ))}
           </ul>
 
           {/* Right Actions */}
-          <div className="navbar__actions">
-            <button
+          <div className="flex items-center gap-2">
+            <AnimatedButton
               id="theme-toggle"
-              className="theme-toggle"
+              contentClassName="w-9 h-9 p-0"
+              className="text-base text-[var(--clr-text-secondary)] hover:text-[var(--clr-accent)]"
               onClick={toggleTheme}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? '☀️' : '🌙'}
-            </button>
+            </AnimatedButton>
+
+            {/* Hamburger — visible on mobile only */}
             <button
               id="hamburger-btn"
-              className="hamburger"
+              className="flex md:hidden flex-col gap-[5px] p-[6px] bg-transparent border-none cursor-pointer"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label="Toggle menu"
             >
-              <span style={{ transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }} />
-              <span style={{ opacity: menuOpen ? 0 : 1 }} />
-              <span style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }} />
+              <span
+                className="block w-[22px] h-[2px] bg-[var(--clr-text-primary)] rounded-[2px] transition-all duration-150 origin-center"
+                style={{ transform: menuOpen ? 'rotate(45deg) translateY(7px)' : 'none' }}
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-[var(--clr-text-primary)] rounded-[2px] transition-all duration-150"
+                style={{ opacity: menuOpen ? 0 : 1 }}
+              />
+              <span
+                className="block w-[22px] h-[2px] bg-[var(--clr-text-primary)] rounded-[2px] transition-all duration-150 origin-center"
+                style={{ transform: menuOpen ? 'rotate(-45deg) translateY(-7px)' : 'none' }}
+              />
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown — only visible when open on mobile */}
+        {/* Mobile Dropdown */}
         {menuOpen && (
-          <ul className="navbar__links navbar__links--mobile">
+          <ul className="flex flex-col gap-2 py-4 list-none border-t border-[var(--clr-border)] animate-fade-in-down px-2">
             {links.map((link) => (
-              <li key={`mobile-${link.id}`}>
-                <button
-                  className={`navbar__link ${activeSection === link.id ? 'active' : ''}`}
+              <li key={`mobile-${link.id}`} className="w-full">
+                <AnimatedButton
+                  contentClassName="w-full text-left px-4 py-1.5"
+                  className={`w-full text-[0.9rem] font-medium transition-all duration-150 cursor-pointer font-[var(--font-sans)] ${
+                    activeSection === link.id
+                      ? 'text-[var(--clr-accent)]'
+                      : 'text-[var(--clr-text-secondary)] hover:text-[var(--clr-text-primary)]'
+                  }`}
                   onClick={() => scrollTo(link.id)}
                 >
-                  {link.label}
-                </button>
+                  <span className="w-full text-left">{link.label}</span>
+                </AnimatedButton>
               </li>
             ))}
           </ul>
