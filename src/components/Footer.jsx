@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="max-w-[1100px] mx-auto px-8">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <p className="text-[0.82rem] text-[var(--clr-text-muted)]">
-            © {year} {personalInfo.name}. Designed &amp; Built with ❤️
+            © {year} {personalInfo.name}.
           </p>
 
           <div className="flex gap-5">

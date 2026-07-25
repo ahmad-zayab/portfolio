@@ -6,7 +6,7 @@ export default function Skills() {
   const gridRef    = useScrollReveal();
 
   return (
-    <section id="skills" className="py-24 bg-[var(--clr-bg-secondary)]">
+    <section id="skills" className="py-24">
       <div className="max-w-[1100px] mx-auto px-8">
         <div ref={headingRef} className="reveal">
           <p
@@ -35,11 +35,11 @@ export default function Skills() {
           {skills.map((skill, i) => (
             <div
               key={skill.name}
-              className="px-4 py-[0.85rem] flex items-center gap-3 rounded-xl border border-[var(--clr-border)] backdrop-blur-[12px] bg-[var(--clr-bg-card)] transition-all duration-300 hover:border-[var(--clr-border-hover)] hover:shadow-[0_0_40px_rgba(196,69,245,0.12)] hover:-translate-y-0.5 cursor-default"
+              className="px-4 py-3 flex items-center gap-3 rounded-2xl border border-[rgba(255,255,255,0.06)] bg-[rgba(255,255,255,0.02)] cursor-default"
               style={{ transitionDelay: `${i * 0.035}s` }}
             >
-              <span className="text-[1.4rem] shrink-0" aria-hidden="true">{skill.icon}</span>
-              <span className="text-[0.85rem] font-medium text-[var(--clr-text-primary)]">{skill.name}</span>
+              <span className="text-[1.2rem] shrink-0" aria-hidden="true">{skill.icon}</span>
+              <span className="text-[0.85rem] font-medium text-[#e2e2e2]">{skill.name}</span>
             </div>
           ))}
         </div>

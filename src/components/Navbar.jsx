@@ -1,17 +1,24 @@
 import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { personalInfo } from '../data/portfolio';
 import AnimatedButton from './AnimatedButton';
 
-export default function Navbar({ activeSection }) {
+export default function Navbar({ activeSection: defaultActiveSection }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // Determine actual active section based on route
+  const activeSection = location.pathname === '/about' ? 'about' 
+                      : location.pathname === '/contact' ? 'contact' 
+                      : defaultActiveSection;
 
   const links = [
     { id: 'home',       label: 'Home' },
     { id: 'about',      label: 'About' },
     { id: 'experience', label: 'Experience' },
-    { id: 'skills',     label: 'Skills' },
     { id: 'projects',   label: 'Work' },
     { id: 'contact',    label: 'Contact' },
   ];
@@ -29,7 +36,30 @@ export default function Navbar({ activeSection }) {
   };
 
   const scrollTo = (id) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (id === 'about') {
+      navigate('/about');
+      window.scrollTo(0, 0);
+    } else if (id === 'contact') {
+      navigate('/contact');
+      window.scrollTo(0, 0);
+    } else {
+      if (location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          if (id === 'home') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        if (id === 'home') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
     setMenuOpen(false);
   };
 
@@ -51,10 +81,7 @@ export default function Navbar({ activeSection }) {
             className="text-base font-bold flex items-center gap-1 tracking-tight no-underline"
             onClick={(e) => { e.preventDefault(); scrollTo('home'); }}
           >
-            <span className="inline-flex items-center justify-center w-8 h-8 bg-[var(--clr-accent)] text-white rounded-lg text-[0.875rem] font-extrabold">
-              {personalInfo.firstName[0]}
-            </span>
-            <span className="ml-2 text-[var(--clr-text-primary)]">
+            <span className="text-[var(--clr-text-primary)]">
               {personalInfo.firstName}{' '}
               <span className="text-[var(--clr-accent)]">{personalInfo.lastName}</span>
             </span>
@@ -82,16 +109,6 @@ export default function Navbar({ activeSection }) {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
-            <AnimatedButton
-              id="theme-toggle"
-              contentClassName="w-9 h-9 p-0"
-              className="text-base text-[var(--clr-text-secondary)] hover:text-[var(--clr-accent)]"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? '☀️' : '🌙'}
-            </AnimatedButton>
-
             {/* Hamburger — visible on mobile only */}
             <button
               id="hamburger-btn"

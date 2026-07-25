@@ -6,7 +6,7 @@ export default function About() {
   const rightRef = useScrollReveal();
 
   return (
-    <section id="about" className="py-24 bg-[var(--clr-bg-secondary)]">
+    <section id="about" className="pt-32 pb-24 min-h-screen bg-[var(--clr-bg)]">
       <div className="max-w-[1100px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
 

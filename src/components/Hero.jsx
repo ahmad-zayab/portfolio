@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { personalInfo, stats } from '../data/portfolio';
 import AnimatedButton from './AnimatedButton';
 
@@ -6,6 +7,7 @@ export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const current = personalInfo.roles[roleIndex];
@@ -23,7 +25,14 @@ export default function Hero() {
     return () => clearTimeout(timeout);
   }, [displayed, isDeleting, roleIndex]);
 
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const scrollTo = (id) => {
+    if (id === 'contact') {
+      navigate('/contact');
+      window.scrollTo(0, 0);
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   return (
     <section id="home" className="min-h-screen flex items-center relative overflow-hidden pt-20">
@@ -80,6 +89,7 @@ export default function Hero() {
                 href={personalInfo.cvUrl}
                 target="_blank"
                 rel="noreferrer"
+                download="Ahmad_Zayab_Resume.pdf"
               >
                 Download Resume
               </AnimatedButton>

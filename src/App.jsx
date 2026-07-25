@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import './index.css';
 
 import Navbar     from './components/Navbar';
@@ -8,9 +9,22 @@ import Experience from './components/Experience';
 import Skills     from './components/Skills';
 import Projects   from './components/Projects';
 import Contact    from './components/Contact';
+import ContactPage from './components/ContactPage';
 import Footer     from './components/Footer';
 
-const SECTIONS = ['home', 'about', 'experience', 'skills', 'projects', 'contact'];
+const SECTIONS = ['home', 'experience', 'skills', 'projects', 'contact'];
+
+function Home() {
+  return (
+    <>
+      <Hero />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Contact />
+    </>
+  );
+}
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
@@ -42,12 +56,11 @@ export default function App() {
       <Navbar activeSection={activeSection} />
 
       <main>
-        <Hero />
-        <About />
-        <Experience />
-        <Skills />
-        <Projects />
-        <Contact />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
       </main>
 
       <Footer />
