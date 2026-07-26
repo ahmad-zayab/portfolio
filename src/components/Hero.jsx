@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { personalInfo, stats } from '../data/portfolio';
 import AnimatedButton from './AnimatedButton';
+import TerminalWidget from './TerminalWidget';
 
 export default function Hero() {
   const [roleIndex, setRoleIndex] = useState(0);
@@ -121,42 +122,12 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* RIGHT column — terminal */}
+          {/* RIGHT column — interactive terminal */}
           <div
-            className="animate-fade-in-up rounded-[14px] overflow-hidden border border-[rgba(255,255,255,0.08)] shadow-[0_8px_40px_rgba(0,0,0,0.5)]"
-            style={{ background: '#0d0b14', animationDelay: '0.2s', marginTop: '-20px' }}
+            className="animate-fade-in-up"
+            style={{ animationDelay: '0.2s', marginTop: '-20px' }}
           >
-            {/* Header bar */}
-            <div className="flex items-center gap-2 px-[1.1rem] py-[0.85rem] border-b border-[rgba(255,255,255,0.06)]"
-              style={{ background: 'rgba(255,255,255,0.03)' }}>
-              <div className="flex gap-[7px]">
-                <span className="w-[13px] h-[13px] rounded-full bg-[#ff5f57]" />
-                <span className="w-[13px] h-[13px] rounded-full bg-[#ffbd2e]" />
-                <span className="w-[13px] h-[13px] rounded-full bg-[#28ca41]" />
-              </div>
-              <span className="font-mono text-[0.78rem] text-[rgba(255,255,255,0.35)] ml-[0.4rem] tracking-wide">
-                {personalInfo.email.split('@')[0]}@portfolio · zsh
-              </span>
-            </div>
-
-            {/* Body */}
-            <div className="px-7 pt-8 pb-20 font-mono text-[0.9rem] leading-loose flex flex-col gap-[0.1rem] min-h-[240px]">
-              <p className="text-[#e8e8f0] font-bold text-[0.95rem] m-0 tracking-[0.01em]">
-                {personalInfo.name} · interactive shell ✦
-              </p>
-              <p className="text-[rgba(200,200,220,0.45)] text-[0.88rem] m-0">
-                type &apos;help&apos; to get started.
-              </p>
-              <p className="flex items-center mt-[0.4rem] text-[0.88rem]">
-                <span className="text-[var(--clr-accent)] text-base mr-[0.35rem]">→</span>
-                <span className="text-[#28ca41] font-semibold"> ~ </span>
-                <span className="text-[rgba(200,200,220,0.4)]">type &apos;help&apos;</span>
-                <span
-                  className="inline-block w-[3px] h-[1.2em] bg-[var(--clr-accent)] ml-[2px] align-text-bottom animate-blink"
-                  aria-hidden="true"
-                />
-              </p>
-            </div>
+            <TerminalWidget />
           </div>
         </div>
 
