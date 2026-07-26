@@ -43,7 +43,6 @@ export default function Hero() {
         style={{ background: 'radial-gradient(ellipse at center, rgba(196,69,245,0.18) 0%, transparent 70%)' }}
         aria-hidden="true"
       />
-
       <div className="max-w-[1100px] mx-auto px-8 flex flex-col gap-0 w-full">
         {/* ── Top two-column area ── */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center py-12 lg:py-12 pb-10">

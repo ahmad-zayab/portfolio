@@ -13,6 +13,7 @@ import ContactPage from './components/ContactPage';
 import Footer     from './components/Footer';
 import ParticleBackground from './components/ParticleBackground';
 import CustomCursor from './components/CustomCursor';
+import CursorBlob from './components/CursorBlob';
 
 const SECTIONS = ['home', 'experience', 'skills', 'projects', 'contact'];
 
@@ -56,6 +57,8 @@ export default function App() {
   return (
     <>
       <CustomCursor />
+
+      <CursorBlob />
 
       {/* Interactive particle field — fixed canvas behind all content */}
       <ParticleBackground />
