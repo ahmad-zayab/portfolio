@@ -1,10 +1,56 @@
-import React from 'react';
+import React, { useRef } from 'react';
 
 export default function AnimatedButton({ children, as: Component = 'button', className = '', contentClassName = 'px-[1.4rem] py-[0.65rem]', ...props }) {
+  const buttonRef = useRef(null);
+
+  function handleMouseMove(e) {
+    const el = buttonRef.current;
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const dx = e.clientX - centerX;
+    const dy = e.clientY - centerY;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    const RADIUS = 80;
+    if (distance < RADIUS) {
+      const strength = (RADIUS - distance) / RADIUS;
+      const moveX = dx * 0.25 * strength;
+      const moveY = dy * 0.25 * strength;
+      el.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      el.style.transition = 'transform 0.1s ease';
+      const innerEl = el.querySelector('[data-magnetic-inner]');
+      if (innerEl) {
+        innerEl.style.transform = `translate(${moveX * 0.4}px, ${moveY * 0.4}px)`;
+        innerEl.style.transition = 'transform 0.1s ease';
+      }
+    }
+    props.onMouseMove?.(e);
+  }
+
+  function handleMouseLeave(e) {
+    const el = buttonRef.current;
+    if (!el) return;
+    el.style.transform = 'translate(0px, 0px)';
+    el.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+    const innerEl = el.querySelector('[data-magnetic-inner]');
+    if (innerEl) {
+      innerEl.style.transform = 'translate(0px, 0px)';
+      innerEl.style.transition = 'transform 0.6s cubic-bezier(0.23, 1, 0.32, 1)';
+    }
+    props.onMouseLeave?.(e);
+  }
+
+  // Pull onMouseMove / onMouseLeave out of props so they aren't double-spread
+  const { onMouseMove: _omm, onMouseLeave: _oml, ...restProps } = props;
+
   return (
     <Component
+      ref={buttonRef}
       className={`relative inline-flex group cursor-pointer hover:-translate-y-0.5 active:scale-95 transition-all duration-300 ${className}`}
-      {...props}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      {...restProps}
     >
       {/* 1. Outer Glow Layer (creates the soft blurred light outside the button) */}
       <div className="absolute inset-0 rounded-full overflow-hidden blur-md opacity-0 group-hover:opacity-40 group-active:opacity-80 transition-opacity duration-300 z-0">
@@ -18,7 +64,7 @@ export default function AnimatedButton({ children, as: Component = 'button', cla
 
         {/* Glass backdrop & Content */}
         <div className={`relative w-full h-full rounded-full bg-[#0a0a0f]/80 backdrop-blur-md z-10 flex items-center justify-center transition-colors duration-300 group-hover:bg-[#0a0a0f]/60 group-active:bg-[#0a0a0f]/40 ${contentClassName}`}>
-          <span className="relative z-20 text-[0.9rem] font-medium text-white whitespace-nowrap flex items-center gap-2 w-full justify-center">
+          <span data-magnetic-inner className="relative z-20 text-[0.9rem] font-medium text-white whitespace-nowrap flex items-center gap-2 w-full justify-center">
             {children}
           </span>
         </div>

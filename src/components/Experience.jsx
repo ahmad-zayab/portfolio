@@ -65,7 +65,7 @@ export default function Experience() {
             Where I&apos;ve Worked
           </h2>
           <p className="text-base text-[var(--clr-text-secondary)] max-w-[480px] leading-[1.7]">
-            A timeline of my professional journey — the companies I&apos;ve contributed to and the impact I&apos;ve made.
+            A timeline of my professional journey, the companies I&apos;ve contributed to and the impact I&apos;ve made.
           </p>
         </div>
 

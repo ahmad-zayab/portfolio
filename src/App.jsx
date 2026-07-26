@@ -11,6 +11,8 @@ import Projects   from './components/Projects';
 import Contact    from './components/Contact';
 import ContactPage from './components/ContactPage';
 import Footer     from './components/Footer';
+import ParticleBackground from './components/ParticleBackground';
+import CustomCursor from './components/CustomCursor';
 
 const SECTIONS = ['home', 'experience', 'skills', 'projects', 'contact'];
 
@@ -53,17 +55,25 @@ export default function App() {
 
   return (
     <>
-      <Navbar activeSection={activeSection} />
+      <CustomCursor />
 
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<ContactPage />} />
-        </Routes>
-      </main>
+      {/* Interactive particle field — fixed canvas behind all content */}
+      <ParticleBackground />
 
-      <Footer />
+      {/* All page content sits above the canvas */}
+      <div style={{ position: 'relative', zIndex: 1 }}>
+        <Navbar activeSection={activeSection} />
+
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<ContactPage />} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
     </>
   );
 }

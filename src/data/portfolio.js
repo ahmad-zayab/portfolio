@@ -7,7 +7,7 @@ export const personalInfo = {
   firstName: 'Ahmad',
   lastName: 'Zayab',
   roles: ['Full Stack Developer', 'React.js Developer', 'Gym bro', 'Next.js Developer'],
-  bio: 'I architect and build full-stack web applications — from designing databases and RESTful APIs to crafting polished React interfaces. Currently at Metalabs Tech, open to exciting new opportunities.',
+  bio: 'I architect and build full-stack web applications, from designing databases and RESTful APIs to crafting polished React interfaces. Currently at Metalabs Tech, open to exciting new opportunities.',
   location: 'Lahore, Pakistan',
   availability: 'Open to Opportunities',
   yearsOfExp: '2+',
@@ -34,7 +34,7 @@ export const quickFacts = [
   { label: 'Location',     value: 'Lahore, Pakistan' },
   { label: 'Availability', value: 'Open to Work' },
   { label: 'Languages',    value: 'English, Urdu' },
-  { label: 'Education',    value: 'BSc CS — UET Lahore (2020–2024)' },
+  { label: 'Education',    value: 'BSc CS, UET Lahore (2020–2024)' },
 ];
 
 // =============================================
@@ -117,7 +117,7 @@ export const projects = [
     title: 'Smart City Complaint & Utility System',
     badge: 'Live',
     description:
-      'Platform for residents to submit complaints and track their lifecycle until resolution. Features utility bill tracking and service management — reducing complaint resolution time by 40% through automated lifecycle tracking.',
+      'Platform for residents to submit complaints and track their lifecycle until resolution. Features utility bill tracking and service management, reducing complaint resolution time by 40% through automated lifecycle tracking.',
     tags: ['Next.js', 'NestJS', 'PostgreSQL', 'TypeScript'],
     category: 'Web',
     githubUrl: 'https://github.com/ahmad-zayab',

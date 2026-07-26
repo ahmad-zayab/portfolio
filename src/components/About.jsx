@@ -38,7 +38,7 @@ export default function About() {
                 'Clean, readable, and maintainable code',
                 'Performance-first development mindset',
                 'Strong communication and teamwork',
-                'Continuous learner — always up to date',
+                'Continuous learner, always up to date',
               ].map((item) => (
                 <li
                   key={item}

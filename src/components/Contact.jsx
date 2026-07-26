@@ -41,7 +41,7 @@ export default function Contact() {
               Let&apos;s build<br />something.
             </h2>
             <p className="text-[var(--clr-text-secondary)] leading-[1.7]">
-              Whether you have a project, a role, or just want to say hi — my inbox is open.
+              Whether you have a project, a role, or just want to say hi, my inbox is open.
             </p>
           </div>
 
