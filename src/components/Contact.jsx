@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { personalInfo } from '../data/portfolio';
 import useScrollReveal from '../hooks/useScrollReveal';
 import AnimatedButton from './AnimatedButton';
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', message: '', website_url: '' });
   const [sent, setSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const leftRef  = useScrollReveal();
@@ -16,6 +15,19 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Honeypot check
+    if (form.website_url) {
+      setIsSending(true);
+      setTimeout(() => {
+        setSent(true);
+        setForm({ name: '', email: '', message: '', website_url: '' });
+        setIsSending(false);
+        setTimeout(() => setSent(false), 4000);
+      }, 500);
+      return;
+    }
+
     setIsSending(true);
 
     emailjs
@@ -32,7 +44,7 @@ export default function Contact() {
       .then(
         () => {
           setSent(true);
-          setForm({ name: '', email: '', message: '' });
+          setForm({ name: '', email: '', message: '', website_url: '' });
           setTimeout(() => setSent(false), 4000);
         },
         (error) => {
@@ -77,6 +89,20 @@ export default function Contact() {
             onSubmit={handleSubmit}
             noValidate
           >
+            {/* Honeypot field for spam bots */}
+            <div className="opacity-0 absolute -z-10 h-0 w-0 overflow-hidden" aria-hidden="true">
+              <label htmlFor="website_url">Website URL</label>
+              <input
+                id="website_url"
+                type="text"
+                name="website_url"
+                value={form.website_url}
+                onChange={handleChange}
+                tabIndex="-1"
+                autoComplete="off"
+              />
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex flex-col gap-[0.4rem]">
                 <label

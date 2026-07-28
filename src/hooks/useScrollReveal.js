@@ -8,7 +8,7 @@ import { useEffect, useRef } from 'react';
  *   const ref = useScrollReveal();
  *   <div ref={ref} className="reveal"> ... </div>
  */
-export default function useScrollReveal(options = {}) {
+export default function useScrollReveal() {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function useScrollReveal(options = {}) {
           observer.unobserve(el); // animate once
         }
       },
-      { threshold: 0.12, ...options }
+      { threshold: 0.12 }
     );
 
     observer.observe(el);

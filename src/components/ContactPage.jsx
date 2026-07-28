@@ -3,7 +3,7 @@ import emailjs from '@emailjs/browser';
 import { personalInfo } from '../data/portfolio';
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+  const [form, setForm] = useState({ name: '', email: '', message: '', website_url: '' });
   const [sent, setSent] = useState(false);
   const [isSending, setIsSending] = useState(false);
 
@@ -12,6 +12,19 @@ export default function ContactPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Honeypot check
+    if (form.website_url) {
+      setIsSending(true);
+      setTimeout(() => {
+        setSent(true);
+        setForm({ name: '', email: '', message: '', website_url: '' });
+        setIsSending(false);
+        setTimeout(() => setSent(false), 3000);
+      }, 500);
+      return;
+    }
+
     setIsSending(true);
 
     emailjs
@@ -28,7 +41,7 @@ export default function ContactPage() {
       .then(
         () => {
           setSent(true);
-          setForm({ name: '', email: '', message: '' });
+          setForm({ name: '', email: '', message: '', website_url: '' });
           setTimeout(() => setSent(false), 3000);
         },
         (error) => {
@@ -99,6 +112,19 @@ export default function ContactPage() {
             <div className="bg-[rgba(255,255,255,0.02)] border border-[rgba(255,255,255,0.05)] rounded-[1.5rem] p-8">
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
                 
+                {/* Honeypot field for spam bots */}
+                <div className="opacity-0 absolute -z-10 h-0 w-0 overflow-hidden" aria-hidden="true">
+                  <label htmlFor="website_url">Website URL</label>
+                  <input
+                    id="website_url"
+                    type="text"
+                    value={form.website_url}
+                    onChange={handleChange}
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
+                </div>
+
                 {/* Name */}
                 <div className="flex flex-col gap-2">
                   <label htmlFor="name" className="font-mono text-[0.7rem] text-[var(--clr-text-muted)] tracking-widest uppercase">

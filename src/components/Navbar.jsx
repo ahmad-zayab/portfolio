@@ -6,7 +6,6 @@ import AnimatedButton from './AnimatedButton';
 export default function Navbar({ activeSection: defaultActiveSection }) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [theme, setTheme] = useState('dark');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -28,12 +27,6 @@ export default function Navbar({ activeSection: defaultActiveSection }) {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark';
-    setTheme(next);
-    document.documentElement.setAttribute('data-theme', next);
-  };
 
   const scrollTo = (id) => {
     if (id === 'about') {
@@ -70,7 +63,6 @@ export default function Navbar({ activeSection: defaultActiveSection }) {
           ? 'bg-[rgba(10,10,15,0.85)] backdrop-blur-[16px] border-b border-[var(--clr-border)]'
           : ''
       }`}
-      style={scrolled && theme === 'light' ? { background: 'rgba(244,244,248,0.85)' } : undefined}
     >
       <div className="max-w-[1100px] mx-auto px-8">
         <div className="flex items-center justify-between">

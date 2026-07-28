@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-const PARTICLE_COUNT = 90;
 const CONNECTION_DISTANCE = 130;
 const MOUSE_RADIUS = 120;
 const MOUSE_FORCE = 0.04;
@@ -87,19 +86,24 @@ export default function ParticleBackground() {
     mouse: { x: null, y: null },
     animId: null,
     accent: hexToRgb('#bc62b4'),
+    isIntersecting: true,
   });
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    if (!canvas) return;
     const ctx = canvas.getContext('2d');
     const state = stateRef.current;
+
+    // Detect mobile screens to save CPU (reduce O(N^2) complexity)
+    const particleCount = window.innerWidth < 768 ? 35 : 90;
 
     function resize() {
       canvas.width = window.innerWidth;
       canvas.height = document.documentElement.scrollHeight;
       // Re-initialise particles on resize
       state.particles = Array.from(
-        { length: PARTICLE_COUNT },
+        { length: particleCount },
         () => new Particle(canvas.width, canvas.height, state.accent)
       );
     }
@@ -115,6 +119,11 @@ export default function ParticleBackground() {
     }
 
     function draw() {
+      if (!state.isIntersecting) {
+        state.animId = null;
+        return;
+      }
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const { particles, mouse, accent } = state;
 
@@ -173,13 +182,32 @@ export default function ParticleBackground() {
     window.addEventListener('mousemove', onMouseMove);
     window.addEventListener('mouseleave', onMouseLeave);
 
-    draw();
+    // Setup IntersectionObserver to pause the animation when off-screen
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        state.isIntersecting = entry.isIntersecting;
+        if (entry.isIntersecting) {
+          if (!state.animId) {
+            state.animId = requestAnimationFrame(draw);
+          }
+        } else {
+          if (state.animId) {
+            cancelAnimationFrame(state.animId);
+            state.animId = null;
+          }
+        }
+      },
+      { threshold: 0 }
+    );
+
+    observer.observe(canvas);
 
     return () => {
-      cancelAnimationFrame(state.animId);
+      if (state.animId) cancelAnimationFrame(state.animId);
       window.removeEventListener('resize', resize);
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseleave', onMouseLeave);
+      observer.unobserve(canvas);
     };
   }, []);
 

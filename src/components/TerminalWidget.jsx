@@ -102,7 +102,6 @@ function getLineStyle(entry, j) {
 export default function TerminalWidget() {
   const [history, setHistory] = useState([]);
   const [inputVal, setInputVal] = useState('');
-  const [isActive, setIsActive] = useState(false);
   const inputRef = useRef(null);
   const bodyRef = useRef(null);
 
@@ -167,7 +166,7 @@ export default function TerminalWidget() {
       {/* Scrollable body */}
       <div
         ref={bodyRef}
-        onClick={() => { inputRef.current?.focus(); setIsActive(true); }}
+        onClick={() => { inputRef.current?.focus(); }}
         className="px-5 pt-5 pb-4 font-mono text-[0.82rem] leading-relaxed flex flex-col gap-[0.15rem] overflow-y-auto"
         style={{ minHeight: '260px', maxHeight: '340px', cursor: 'text' }}
       >
@@ -224,7 +223,6 @@ export default function TerminalWidget() {
               handleSubmit();
             }
           }}
-          onBlur={() => setIsActive(false)}
           aria-label="Terminal input"
           style={{
             position: 'absolute',
