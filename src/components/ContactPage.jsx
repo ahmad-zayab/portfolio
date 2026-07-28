@@ -1,17 +1,48 @@
 import React, { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { personalInfo } from '../data/portfolio';
 
 export default function ContactPage() {
+  const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+
+  const handleChange = (e) =>
+    setForm((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setIsSending(true);
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setSent(true);
+          setForm({ name: '', email: '', message: '' });
+          setTimeout(() => setSent(false), 3000);
+        },
+        (error) => {
+          console.error('Failed to send message:', error);
+          alert('Failed to send the message. Please try again later.');
+        }
+      )
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   return (
-    <section className="pt-32 pb-24 min-h-screen bg-[var(--clr-bg)] font-sans">
+    <section className="pt-32 pb-24 min-h-screen font-sans">
       <div className="max-w-[1100px] mx-auto px-8">
         
         {/* Header */}
@@ -77,6 +108,8 @@ export default function ContactPage() {
                     type="text"
                     id="name"
                     required
+                    value={form.name}
+                    onChange={handleChange}
                     placeholder="Your name"
                     className="w-full bg-[#0a0a0f] text-white rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-[var(--clr-accent)] transition-all placeholder-[var(--clr-text-muted)] text-[0.95rem]"
                   />
@@ -91,6 +124,8 @@ export default function ContactPage() {
                     type="email"
                     id="email"
                     required
+                    value={form.email}
+                    onChange={handleChange}
                     placeholder="you@example.com"
                     className="w-full bg-[#0a0a0f] text-white rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-[var(--clr-accent)] transition-all placeholder-[var(--clr-text-muted)] text-[0.95rem]"
                   />
@@ -105,6 +140,8 @@ export default function ContactPage() {
                     id="message"
                     required
                     rows={4}
+                    value={form.message}
+                    onChange={handleChange}
                     placeholder="What are you building?"
                     className="w-full bg-[#0a0a0f] text-white rounded-xl px-4 py-3 outline-none focus:ring-1 focus:ring-[var(--clr-accent)] transition-all placeholder-[var(--clr-text-muted)] text-[0.95rem] resize-none"
                   />
@@ -114,9 +151,10 @@ export default function ContactPage() {
                 <div className="mt-2">
                   <button
                     type="submit"
-                    className="w-full bg-[var(--clr-accent)] hover:bg-[#c974c2] text-[#111] font-bold rounded-xl py-[0.85rem] transition-colors flex items-center justify-center gap-2 text-[0.95rem]"
+                    disabled={isSending}
+                    className="w-full bg-[var(--clr-accent)] hover:bg-[#c974c2] text-[#111] font-bold rounded-xl py-[0.85rem] transition-colors flex items-center justify-center gap-2 text-[0.95rem] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {sent ? '✓ Sent Successfully' : 'Send message →'}
+                    {isSending ? 'Sending...' : sent ? '✓ Sent Successfully' : 'Send message →'}
                   </button>
                   <p className="font-mono text-[0.65rem] text-[var(--clr-text-muted)] text-center mt-4 tracking-wide">
                     I'll get back to you as soon as possible.

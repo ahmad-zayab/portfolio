@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import { personalInfo } from '../data/portfolio';
 import useScrollReveal from '../hooks/useScrollReveal';
 import AnimatedButton from './AnimatedButton';
@@ -6,6 +7,7 @@ import AnimatedButton from './AnimatedButton';
 export default function Contact() {
   const [form, setForm] = useState({ name: '', email: '', message: '' });
   const [sent, setSent] = useState(false);
+  const [isSending, setIsSending] = useState(false);
   const leftRef  = useScrollReveal();
   const rightRef = useScrollReveal();
 
@@ -14,15 +16,37 @@ export default function Contact() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio Contact from ${form.name}`);
-    const body    = encodeURIComponent(form.message);
-    window.location.href = `mailto:${personalInfo.email}?subject=${subject}&body=${body}`;
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
+    setIsSending(true);
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      )
+      .then(
+        () => {
+          setSent(true);
+          setForm({ name: '', email: '', message: '' });
+          setTimeout(() => setSent(false), 4000);
+        },
+        (error) => {
+          console.error('Failed to send message:', error);
+          alert('Failed to send the message. Please try again later.');
+        }
+      )
+      .finally(() => {
+        setIsSending(false);
+      });
   };
 
   return (
-    <section id="contact" className="py-24 bg-[var(--clr-bg-secondary)]">
+    <section id="contact" className="py-24">
       <div className="max-w-[1100px] mx-auto px-8">
         <div className="grid grid-cols-1 md:grid-cols-[1fr_1.4fr] gap-16 items-start">
 
@@ -115,8 +139,9 @@ export default function Contact() {
               id="contact-submit"
               type="submit"
               className="self-start"
+              disabled={isSending}
             >
-              {sent ? '✓ Message Sent!' : 'Send Message →'}
+              {isSending ? 'Sending...' : sent ? '✓ Message Sent!' : 'Send Message →'}
             </AnimatedButton>
           </form>
 

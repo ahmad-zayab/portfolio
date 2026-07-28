@@ -1,109 +1,147 @@
-import { aboutText, quickFacts, personalInfo } from '../data/portfolio';
+import { personalInfo } from '../data/portfolio';
 import useScrollReveal from '../hooks/useScrollReveal';
 
 export default function About() {
-  const leftRef  = useScrollReveal();
+  const leftRef = useScrollReveal();
   const rightRef = useScrollReveal();
 
   return (
-    <section id="about" className="pt-32 pb-24 min-h-screen bg-[var(--clr-bg)]">
+    <section id="about" className="pt-32 pb-24 min-h-screen">
       <div className="max-w-[1100px] mx-auto px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 lg:gap-16 items-start">
 
-          {/* Left: Bio */}
+          {/* Left: Bio (60%) */}
           <div ref={leftRef} className="reveal-left">
             <p
-              className="font-mono text-[0.75rem] font-medium text-[var(--clr-accent)] tracking-[0.12em] uppercase mb-3 flex items-center gap-3 section-label"
+              className="font-mono text-[0.75rem] font-medium text-[#7f77dd] tracking-[0.12em] uppercase mb-3 flex items-center gap-3 section-label"
               data-num="01"
             >
               ABOUT
             </p>
             <h2
-              className="font-extrabold tracking-[-0.03em] leading-[1.1] mb-4"
+              className="font-extrabold tracking-[-0.03em] leading-[1.1] mb-6 text-white"
               style={{ fontSize: 'clamp(2rem, 5vw, 3.2rem)' }}
             >
               Who I Am
             </h2>
 
-            <div className="flex flex-col">
-              {aboutText.map((para, i) => (
-                <p key={i} className="text-[var(--clr-text-secondary)] leading-[1.8] mb-5">
-                  {para}
-                </p>
+            {/* Bio Paragraphs */}
+            <div className="flex flex-col text-[#c9c6d6] leading-[1.8] space-y-5 mb-8">
+              <p>
+                I'm a Full Stack Developer based in Lahore, Pakistan, with a year of experience shipping production web apps. I work across the stack at Metalabs Tech REST APIs, React front ends, and data pipelines with light ML components and previously interned at Arbisoft.
+              </p>
+              <p>
+                I care about clean architecture and fast, reliable UIs.
+              </p>
+            </div>
+
+            {/* Skill Chips */}
+            <div className="flex flex-wrap gap-2 mb-10">
+              {['React.js', 'Next.js', 'Node / Express', 'Django', 'Git'].map((skill) => (
+                <span
+                  key={skill}
+                  className="px-3 py-1 text-[12px] rounded-full border-[0.5px] border-[#4a3f7a] text-[#b6a9ee] bg-[#141220]"
+                >
+                  {skill}
+                </span>
               ))}
             </div>
 
-            <ul className="flex flex-col gap-3 mt-6 list-none">
+            {/* Bullet List - 2 Column Grid */}
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-6 list-none mb-10">
               {[
-                'Clean, readable, and maintainable code',
-                'Performance-first development mindset',
-                'Strong communication and teamwork',
-                'Continuous learner, always up to date',
+                'Clean, maintainable code',
+                'Performance-first mindset',
+                'Strong communication',
+                'Always learning',
               ].map((item) => (
-                <li
-                  key={item}
-                  className="about-list-item flex items-center text-[0.9rem] text-[var(--clr-text-secondary)]"
-                >
+                <li key={item} className="flex items-center text-[0.9rem] text-[#c9c6d6]">
+                  {/* Small check icon */}
+                  <svg className="w-4 h-4 mr-3 text-[#7f77dd] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                  </svg>
                   {item}
                 </li>
               ))}
             </ul>
+
+            {/* Download Resume Button */}
+            <a
+              href={personalInfo.cvUrl}
+              target="_blank"
+              rel="noreferrer"
+              download="Ahmad_Zayab_Resume.pdf"
+              className="inline-flex items-center justify-center bg-[#7f77dd] text-[#0a0a0d] font-bold px-6 py-3 rounded-lg hover:bg-[#b6a9ee] transition-colors"
+            >
+              <svg className="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download resume
+            </a>
           </div>
 
-          {/* Right: Quick Facts sidebar */}
-          <div ref={rightRef} className="reveal-right flex flex-col gap-5">
+          {/* Right: Merged Info Card (40%) */}
+          <div ref={rightRef} className="reveal-right">
+            <div className="p-8 rounded-2xl border border-[#2a253f] backdrop-blur-[12px] bg-[#141220] transition-all duration-300 hover:border-[#4a3f7a]">
 
-            {/* Info Card */}
-            <div className="p-6 rounded-2xl border border-[var(--clr-border)] backdrop-blur-[12px] bg-[var(--clr-bg-card)] transition-all duration-300 hover:border-[var(--clr-border-hover)] hover:shadow-[0_0_40px_rgba(196,69,245,0.12)]">
-              <p className="text-[0.7rem] tracking-[0.1em] uppercase text-[var(--clr-text-muted)] mb-3">
-                Quick Facts
-              </p>
-              <div className="text-[0.9rem] text-[var(--clr-text-secondary)] leading-[1.7]">
-                {quickFacts.map((fact, i) => (
-                  <div key={i} className="mb-[0.6rem]">
-                    <strong className="text-[var(--clr-text-primary)]">{fact.label}:</strong>{' '}
-                    {fact.value}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Card */}
-            <div className="p-6 rounded-2xl border border-[var(--clr-border)] backdrop-blur-[12px] bg-[var(--clr-bg-card)] transition-all duration-300 hover:border-[var(--clr-border-hover)] hover:shadow-[0_0_40px_rgba(196,69,245,0.12)]">
-              <p className="text-[0.7rem] tracking-[0.1em] uppercase text-[var(--clr-text-muted)] mb-3">
-                Contact
-              </p>
-              <div className="text-[0.9rem] text-[var(--clr-text-secondary)] leading-[1.7]">
-                <div className="mb-2">
-                  <strong className="text-[var(--clr-text-primary)]">Email:</strong>{' '}
-                  <a href={`mailto:${personalInfo.email}`} className="text-[var(--clr-accent)]">
-                    {personalInfo.email}
-                  </a>
-                </div>
-                <div>
-                  <strong className="text-[var(--clr-text-primary)]">Phone:</strong>{' '}
-                  {personalInfo.phone}
-                </div>
-              </div>
-            </div>
-
-            {/* Status Card */}
-            <div className="p-6 rounded-2xl border border-[rgba(196,69,245,0.3)] backdrop-blur-[12px] bg-[var(--clr-bg-card)] transition-all duration-300 hover:border-[var(--clr-border-hover)] hover:shadow-[0_0_40px_rgba(196,69,245,0.12)]">
-              <p className="text-[0.7rem] tracking-[0.1em] uppercase text-[var(--clr-text-muted)] mb-3">
-                Status
-              </p>
-              <div className="flex items-center gap-[0.6rem]">
+              {/* Top: Status Line */}
+              <div className="flex items-center gap-3 mb-8">
                 <span
-                  className="inline-block w-[10px] h-[10px] rounded-full bg-[#28ca41]"
+                  className="inline-block w-2.5 h-2.5 rounded-full bg-[#28ca41]"
                   style={{ boxShadow: '0 0 8px #28ca41' }}
                 />
-                <span className="text-[var(--clr-text-primary)] font-semibold">
-                  {personalInfo.availability}
+                <span className="text-[#c9c6d6] font-semibold text-sm tracking-wide uppercase">
+                  Open to work
                 </span>
               </div>
-            </div>
 
+              {/* Details: Location, Languages, Education */}
+              <div className="flex flex-col gap-5 text-[#c9c6d6] text-[0.95rem]">
+                <div className="flex justify-between items-center gap-4">
+                  <span className="text-[#8b84a8] uppercase tracking-wider text-xs">Location</span>
+                  <span className="font-medium text-right">{personalInfo.location}</span>
+                </div>
+                <div className="flex justify-between items-center gap-4">
+                  <span className="text-[#8b84a8] uppercase tracking-wider text-xs">Languages</span>
+                  <span className="font-medium text-right">English, Urdu</span>
+                </div>
+                <div className="flex justify-between items-center gap-4">
+                  <span className="text-[#8b84a8] uppercase tracking-wider text-xs">Education</span>
+                  <span className="font-medium text-right">BSc CS, UET Lahore</span>
+                </div>
+              </div>
+
+              {/* Horizontal Divider */}
+              <div className="w-full h-px bg-[#2a253f] my-8"></div>
+
+              {/* Contact Section */}
+              <div className="flex flex-col gap-5">
+                <a href={`mailto:${personalInfo.email}`} className="flex items-center gap-4 group no-underline text-[#c9c6d6]">
+                  <div className="w-10 h-10 rounded-full bg-[#0a0a0d] border border-[#2a253f] flex items-center justify-center group-hover:border-[#7f77dd] transition-colors shrink-0">
+                    <svg className="w-4 h-4 text-[#7f77dd]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-[#7f77dd] group-hover:text-[#b6a9ee] transition-colors truncate">
+                    {personalInfo.email}
+                  </span>
+                </a>
+
+                <div className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-[#0a0a0d] border border-[#2a253f] flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 text-[#8b84a8]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <span className="font-medium text-[#c9c6d6]">
+                    {personalInfo.phone}
+                  </span>
+                </div>
+              </div>
+
+            </div>
           </div>
+
         </div>
       </div>
     </section>
