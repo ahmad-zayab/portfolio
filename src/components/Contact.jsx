@@ -165,7 +165,7 @@ export default function Contact() {
               id="contact-submit"
               type="submit"
               className="self-start"
-              disabled={isSending}
+              disabled={isSending || !form.name.trim() || !form.email.trim() || !form.message.trim()}
             >
               {isSending ? 'Sending...' : sent ? '✓ Message Sent!' : 'Send Message →'}
             </AnimatedButton>

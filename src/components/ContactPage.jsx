@@ -177,7 +177,7 @@ export default function ContactPage() {
                 <div className="mt-2">
                   <button
                     type="submit"
-                    disabled={isSending}
+                    disabled={isSending || !form.name.trim() || !form.email.trim() || !form.message.trim()}
                     className="w-full bg-[var(--clr-accent)] hover:bg-[#c974c2] text-[#111] font-bold rounded-xl py-[0.85rem] transition-colors flex items-center justify-center gap-2 text-[0.95rem] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {isSending ? 'Sending...' : sent ? '✓ Sent Successfully' : 'Send message →'}
