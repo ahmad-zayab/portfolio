@@ -101,6 +101,19 @@ export const skills = [
 // =============================================
 export const projects = [
   {
+    id: 5,
+    title: 'AI-Proof',
+    badge: 'Live',
+    description:
+      'A modern quiz application designed to evaluate a developer\'s resilience to AI coding assistants. Features dynamic Open Graph image generation and a sleek glassmorphism UI.',
+    tags: ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS'],
+    category: 'Web',
+    githubUrl: '',
+    liveUrl: 'https://aiproof-m32s3oxjs-zayab.vercel.app/',
+    image: '/ai-proof.webp',
+    color: '#6c5ce7',
+  },
+  {
     id: 1,
     title: 'HR Attendance Management System',
     badge: 'Live',
