@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { projects, projectCategories } from '../data/portfolio';
 import useScrollReveal from '../hooks/useScrollReveal';
 import AnimatedButton from './AnimatedButton';
-
+// added some polish to project cards
 function ProjectCard({ project, index }) {
   const ref = useScrollReveal();
   const cardRef = useRef(null);
@@ -203,11 +203,10 @@ export default function Projects() {
               key={cat}
               id={`projects-filter-${cat.toLowerCase().replace('/', '-')}`}
               contentClassName="px-4 py-[0.45rem]"
-              className={`text-[0.85rem] font-medium transition-all duration-150 cursor-pointer ${
-                active === cat
+              className={`text-[0.85rem] font-medium transition-all duration-150 cursor-pointer ${active === cat
                   ? 'text-white'
                   : 'text-[var(--clr-text-secondary)] hover:text-[var(--clr-accent)]'
-              }`}
+                }`}
               onClick={() => setActive(cat)}
             >
               {cat}
