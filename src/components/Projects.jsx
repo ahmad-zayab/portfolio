@@ -47,44 +47,7 @@ function ProjectCard({ project, index }) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Preview Area */}
-      <div
-        className="h-[200px] border-b border-[var(--clr-border)] flex items-center justify-center relative overflow-hidden"
-        style={{ background: `linear-gradient(135deg, ${project.color}22 0%, transparent 60%)` }}
-      >
-        {/* Browser-style header */}
-        <div
-          className="absolute top-0 left-0 right-0 px-[0.85rem] py-[0.6rem] flex items-center gap-[0.35rem] border-b border-[var(--clr-border)] font-mono text-[0.7rem] text-[var(--clr-text-muted)] z-20"
-          style={{ background: 'rgba(0,0,0,0.3)' }}
-        >
-          <span className="w-2 h-2 rounded-full bg-[var(--clr-border)]" />
-          <span className="w-2 h-2 rounded-full" style={{ background: project.color }} />
-          <span className="w-2 h-2 rounded-full bg-[var(--clr-border)]" />
-          <span className="ml-2">{project.title}</span>
-        </div>
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover absolute inset-0 z-10"
-          />
-        ) : (
-          <>
-            {/* Decorative dot grid */}
-            <div
-              className="absolute inset-0 top-9 opacity-60 z-10"
-              style={{
-                backgroundImage: `radial-gradient(circle, ${project.color}30 1px, transparent 1px)`,
-                backgroundSize: '24px 24px',
-              }}
-              aria-hidden="true"
-            />
-            <span className="text-[2.5rem] relative z-10">
-              {project.tags[0].includes('Python') || project.tags[0].includes('ML') ? '🤖' : '💻'}
-            </span>
-          </>
-        )}
-      </div>
+
 
       {/* Card Body */}
       <div className="p-5">

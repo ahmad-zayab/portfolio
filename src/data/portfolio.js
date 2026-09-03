@@ -19,7 +19,7 @@ export const personalInfo = {
 };
 
 export const stats = [
-  { value: '1+',   label: 'Years Experience' },
+  { value: '2+',   label: 'Years Experience' },
   { value: '5+',   label: 'Projects Shipped' },
   { value: 'BSc',  label: 'Computer Science' },
   { value: 'PK',   label: 'Based in Lahore' },
@@ -46,10 +46,10 @@ export const experiences = [
     role: 'Associate Software Engineer',
     company: 'Metalabs Tech',
     companyUrl: 'https://metalabs.tech',
-    period: 'Mar 2025 – Present',
+    period: 'Apr 2025 – Present',
     type: 'Full-time',
     description:
-      'Architected and developed a full-stack Attendance Management System using React.js and Node.js, improving employee tracking efficiency across departments. Designed and built RESTful APIs with Node.js and Express.js, enabling seamless client-server communication and reducing API response latency. Also developed a Smart City Complaint & Utility Management System for resident complaint submission, lifecycle tracking, and utility bill management.',
+      'Improved cross-departmental attendance-tracking efficiency by architecting a full-stack Attendance Management System using React.js, Node.js, and Express.js, replacing manual spreadsheet-based tracking. Reduced API response latency by designing and implementing RESTful endpoints in Node.js/Express.js, enabling real-time client-server data synchronization.',
     tags: ['React.js', 'Node.js', 'Express.js', 'REST APIs', 'MongoDB'],
   },
   {
@@ -60,8 +60,18 @@ export const experiences = [
     period: 'Jan 2025 – Mar 2025',
     type: 'Internship',
     description:
-      'Developed dynamic, full-stack web applications using React.js and Django, delivering 3+ full-stack features per sprint within tight deadlines. Developed and integrated RESTful APIs using Python (Django REST Framework), enabling efficient data exchange between front-end and back-end services.',
+      'Delivered full-stack features under sprint deadlines by developing React.js front-end components integrated with a Django backend, using Agile/Scrum workflows.',
     tags: ['React.js', 'Django', 'Python', 'Django REST Framework', 'PostgreSQL'],
+  },
+  {
+    id: 3,
+    role: 'Freelance Full-Stack Developer',
+    company: 'Self-Employed (UK Clients)',
+    period: 'Feb 2024 – Dec 2024',
+    type: 'Freelance',
+    description:
+      'Delivered custom full-stack web applications for multiple UK-based clients using the MERN stack (React.js, Node.js, Express.js, MongoDB), managing requirements, development, and delivery independently. Managed end-to-end client communication, timelines, and revisions across independent contract engagements, delivering production-ready features on schedule.',
+    tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB', 'MERN Stack'],
   },
 ];
 
@@ -109,7 +119,7 @@ export const projects = [
     tags: ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS'],
     category: 'Web',
     githubUrl: '',
-    liveUrl: 'https://aiproof-m32s3oxjs-zayab.vercel.app/',
+    liveUrl: 'https://aiproof-sage.vercel.app/',
     image: '/ai-proof.webp',
     color: '#6c5ce7',
   },
@@ -118,7 +128,7 @@ export const projects = [
     title: 'HR Attendance Management System',
     badge: 'Live',
     description:
-      'Web-based system for tracking employee attendance and managing leave requests with role-based access for admins and employees. Built RESTful APIs and integrated a database for authentication, records, and report generation.',
+      'Streamlined attendance and leave management by building role-based access control (admin/employee) with RESTful APIs and database-backed report generation.',
     tags: ['React.js', 'Node.js', 'Express.js', 'MongoDB'],
     category: 'Web',
     githubUrl: 'https://github.com/ahmad-zayab',
@@ -130,7 +140,7 @@ export const projects = [
     title: 'Smart City Complaint & Utility System',
     badge: 'Live',
     description:
-      'Platform for residents to submit complaints and track their lifecycle until resolution. Features utility bill tracking and service management, reducing complaint resolution time by 40% through automated lifecycle tracking.',
+      'Reduced complaint resolution time by 40% by designing an end-to-end lifecycle-tracking platform with automated status updates and utility bill management.',
     tags: ['Next.js', 'NestJS', 'PostgreSQL', 'TypeScript'],
     category: 'Web',
     githubUrl: 'https://github.com/ahmad-zayab',
@@ -142,7 +152,7 @@ export const projects = [
     title: 'Restaurant Ordering System',
     badge: 'Complete',
     description:
-      'Full-stack web application for managing restaurant menus and processing customer orders, with a React front-end and Django REST back-end.',
+      'Enabled end-to-end order processing by building a full-stack system with a React front-end and Django REST back-end, supporting real-time menu and order management.',
     tags: ['React.js', 'Django', 'Django REST Framework', 'Python'],
     category: 'Web',
     githubUrl: 'https://github.com/ahmad-zayab',
@@ -154,7 +164,7 @@ export const projects = [
     title: 'Bore Log Data Extraction & Processing',
     badge: 'ML',
     description:
-      'Automated Python pipeline leveraging the Donut Transformer model for intelligent extraction of geological bore log data. Reduced manual data extraction time by 70%, processing 50+ bore log documents.',
+      'Reduced manual data-extraction time by 70% by engineering an automated Python pipeline using the Donut Transformer model to process 50+ geological bore log documents, eliminating manual OCR review.',
     tags: ['Python', 'Donut Transformer', 'ML', 'Computer Vision'],
     category: 'AI/ML',
     githubUrl: 'https://github.com/ahmad-zayab',
