@@ -1,16 +1,47 @@
-# React + Vite
+# Personal Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio web application showcasing full-stack projects, technical proficiencies, work experience, and contact avenues.
 
-Currently, two official plugins are available:
+**Live Demo:** [ahmadzayab.vercel.app](https://ahmadzayab.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Project Showcase:** Highlights full-stack, real-time, and ML-adjacent applications with live deployment links and source code.
+- **Experience Timeline:** Detailed breakdown of freelance projects, internships, and associate software engineer roles.
+- **Performance Optimized:** Fast client-side rendering with Vite and lightweight component architecture.
+- **Responsive Layout:** Mobile-first layout with dark mode support.
 
-## Expanding the Oxlint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Tech Stack
+
+| Layer | Technology |
+| :--- | :--- |
+| **Framework** | React 19 |
+| **Build Tool** | Vite |
+| **Styling** | Tailwind CSS / Modern CSS |
+| **Linting & Code Quality** | Oxlint |
+| **Deployment** | Vercel |
+
+---
+
+## Getting Started
+
+### Prerequisites
+- Node.js >= 18
+- npm or pnpm
+
+### Installation & Run
+
+```bash
+# Clone the repository
+git clone https://github.com/ahmad-zayab/portfolio.git
+cd portfolio
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
